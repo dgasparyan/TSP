@@ -103,8 +103,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TESTING_DEBUG|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\gasparyd\Desktop\ConcertScheduling\External\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\gasparyd\Desktop\ConcertScheduling\External\x64\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\gasparyd\Desktop\TSP\External\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\gasparyd\Desktop\TSP\External\x64\Debug;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
@@ -113,8 +114,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TESTING_DEBUG|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\gasparyd\source\Projects\Analyzer\External\Include;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\gasparyd\Desktop\ConcertScheduling\External\x86\Debug;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\gasparyd\Desktop\TSP\External\Include;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\gasparyd\Desktop\TSP\External\x86\Debug;$(LibraryPath)</LibraryPath>
+    <SourcePath>$(VC_SourcePath);</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -153,6 +155,7 @@
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <AdditionalOptions>-DTESTING %(AdditionalOptions)</AdditionalOptions>
+      <DisableLanguageExtensions>true</DisableLanguageExtensions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -249,6 +252,7 @@
     <ClCompile Include="City.cpp" />
     <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Test\UtilsTest.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
