@@ -1,7 +1,7 @@
 -- Testing
+
 -- Brute-force for small values
 -- Option to return to orig city
 -- DistanceCache(s)
--- Code TODOs
--- Path Optimizer(s)
 -- Other Path finders
+-- Path Optimizer(s)
