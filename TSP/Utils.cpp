@@ -13,23 +13,41 @@ bool isEqual(float first, float second)
 {
 	return fabs(first - second) < Constants::EPSILION;
 }
+std::string_view trimStart(std::string_view str)
+{
+	str.remove_prefix(std::min(str.find_first_not_of(" "), str.size()));
+	return str;
+}
 
-std::string toLowerCopy(const std::string& str)
+std::string_view trimEnd(std::string_view str)
+{
+	auto fLast = str.find_last_not_of(" ");
+	if (fLast != str.npos)
+	{
+		str.remove_suffix(str.size() - fLast - 1);
+	}
+	return str;
+}
+
+std::string_view trim(std::string_view str)
+{
+	return trimStart(trimEnd(str));
+}
+
+std::string trimAndLowerCopy(const std::string& str)
 {
 	std::string result;
-	result.reserve(str.size());
-	std::transform(str.begin(), str.end(), std::back_inserter(result), ::tolower);
+	std::string_view trimmed = trim(str);
+	result.reserve(trimmed.size());
+	std::transform(trimmed.begin(), trimmed.end(), std::back_inserter(result), tolower);
 	return result;
 }
 
 bool trimAndLowerEqual(std::string_view first, std::string_view second)
 {
 	// trim both
-	first.remove_prefix(std::min(first.find_first_not_of(" "), first.size()));
-	first.remove_suffix(std::min(first.find_last_not_of(" "), first.size()));
-
-	second.remove_prefix(std::min(second.find_first_not_of(" "), second.size()));
-	second.remove_suffix(std::min(second.find_last_not_of(" "), second.size()));
+	first = trim(first);
+	second = trim(second);
 
 	// compare
 	if (first.size() != second.size())

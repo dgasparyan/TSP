@@ -8,7 +8,11 @@
 
 bool isEqual(float first, float second);
 
-std::string toLowerCopy(const std::string& str);
+std::string_view trimStart(std::string_view str);
+std::string_view trimEnd(std::string_view str);
+std::string_view trim(std::string_view str);
+
+std::string trimAndLowerCopy(const std::string& str);
 bool trimAndLowerEqual(std::string_view first, std::string_view second);
 
 template <class OutputIt>

@@ -60,7 +60,7 @@ bool operator == (const City& first, const City& second)
 {
 	// TODO: replace this with a comparison without the copy stuff after testing
 	//return trimAndLowerEqual(first.getName(), second.getName());
-	return toLowerCopy(first.getName()) == toLowerCopy(second.getName());
+	return trimAndLowerCopy(first.getName()) == trimAndLowerCopy(second.getName());
 }
 
 bool operator != (const City& first, const City& second)
