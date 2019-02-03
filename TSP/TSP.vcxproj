@@ -252,6 +252,12 @@
     <ClCompile Include="City.cpp" />
     <ClCompile Include="Coordinates.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Test\CityTest.cpp" />
+    <ClCompile Include="Test\CoordinatesTest.cpp" />
+    <ClCompile Include="Test\PathFinderTest.cpp" />
+    <ClCompile Include="Test\PathOptimizerTest.cpp" />
+    <ClCompile Include="Test\PathTest.cpp" />
+    <ClCompile Include="Test\SolverTest.cpp" />
     <ClCompile Include="Test\UtilsTest.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>

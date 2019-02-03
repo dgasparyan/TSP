@@ -45,8 +45,9 @@ City fromString(const std::string & str)
 		return City();
 	}
 
-	Latitude lat(stof(stringVec[1]), stof(stringVec[2]));
-	Longitude lon(stof(stringVec[3]), stof(stringVec[4]));
+	// TODO: support SOUTH/EAST as well
+	Latitude lat(stof(stringVec[1]), stof(stringVec[2]), Latitude::Direction::North);
+	Longitude lon(stof(stringVec[3]), stof(stringVec[4]), Longitude::Direction::West);
 
 	return City(stringVec[0], lat, lon);
 }
