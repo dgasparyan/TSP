@@ -11,7 +11,6 @@ namespace Test
 class CoordinateTestFixture : public ::testing::Test
 {};
 
-
 namespace
 {
 template <class T>
@@ -72,18 +71,37 @@ void testValues()
 }
 
 template <class T>
-bool isEqualRadian(float value, float radian)
+void isEqualRadian(float value, float radian)
 {
+	T t(value);
+	if (!isEqual(t.toRadians(), radian))
+	{
+		std::cout << "Error while calculating radian! " << t  << " " << t.toRadians() 
+				  << " Expected Radian = " << radian << std::endl;
+		ASSERT_TRUE(false);
+	}
 }
 
 template <class T>
 void testToRadians()
 {
-	T zero{ 0.0f };
-	float radian = zero.toRadian();
-	ASSERT_EQ(radian, 0.0f);
+	isEqualRadian<T>(0.0f, 0.0f);
+	isEqualRadian<T>(45.0f, 0.785f);
+	isEqualRadian<T>(90.0f, 1.57f);
+	isEqualRadian<T>(-45.0f, -0.785f);
+	isEqualRadian<T>(-90.0f, -1.57f);
+}
 
-	T forty_five{ 45.0f, 0.0f, T::getPositiveDirection() };
+// law of consines is known to have rounding errors
+const float EPS = 50.0f;
+
+void testDistance(Coordinate f, Coordinate s, int expected)
+{
+	if (!isEqual(distance(f, s), (float)expected, EPS))
+	{
+		std::cout << "Errorcalculating distance, expected " << expected << " while the value was " << distance(f, s) << std::endl;
+		ASSERT_TRUE(false);
+	}
 }
 
 }
@@ -101,9 +119,8 @@ TEST_F(CoordinateTestFixture, test_latitude_values)
 
 TEST_F(CoordinateTestFixture, test_latitude_to_radians)
 {
-	testValues<Latitude>();
+	testToRadians<Latitude>();
 }
-
 
 ///		Longitude tests ////
 TEST_F(CoordinateTestFixture, test_longitude_valid)
@@ -118,11 +135,78 @@ TEST_F(CoordinateTestFixture, test_longitude_values)
 
 TEST_F(CoordinateTestFixture, test_longitude_to_radians)
 {
-	testValues<Longitude>();
+	testToRadians<Longitude>();
+	isEqualRadian<Longitude>(180.0f, 3.14f);
+	isEqualRadian<Longitude>(-180.0f, -3.14f);
+}
+
+/// Coordinate Tests ////
+TEST_F(CoordinateTestFixture, test_coordinate_isValid)
+{
+	Coordinate c(Latitude(0.0f), Longitude(0.0f));
+	ASSERT_TRUE(c.isValid());
+
+	Coordinate invalidLatitude(Latitude(), Longitude(0.0f));
+	ASSERT_FALSE(invalidLatitude.isValid());
+
+	Coordinate invalidLongitude(Latitude(0.0f), Longitude());
+	ASSERT_FALSE(invalidLongitude.isValid());
 }
 
 
-/// Coordinate Tests ////
+TEST_F(CoordinateTestFixture, test_distance_same_point)
+{
+	Coordinate f(Latitude(45.0f), Longitude(45.0f));
+	Coordinate s(Latitude(45.0f), Longitude(45.0f));
+
+	ASSERT_TRUE(isEqual(distance(f, s), 0.0f));
+}
+
+// NOTE: expected values are taken from https://www.movable-type.co.uk/scripts/latlong.html
+
+TEST_F(CoordinateTestFixture, test_distance_nw)
+{
+	Coordinate point(Latitude(30.0f, 0.0f, Latitude::Direction::North), Longitude(45.0f, 0.0f, Longitude::Direction::West));
+
+	Coordinate NW(Latitude(15.0f, 0.0f, Latitude::Direction::North), Longitude(80.0f, 0.0f, Longitude::Direction::West));
+	testDistance(point, NW, 3942);
+
+	Coordinate NE(Latitude(15.0f, 0.0f, Latitude::Direction::North), Longitude(80.0f, 0.0f, Longitude::Direction::East));
+	testDistance(point, NE, 12290);
+
+	Coordinate SW(Latitude(15.0f, 0.0f, Latitude::Direction::South), Longitude(80.0f, 0.0f, Longitude::Direction::West));
+	testDistance(point, SW, 6253);
+
+	Coordinate SE(Latitude(15.0f, 0.0f, Latitude::Direction::South), Longitude(80.0f, 0.0f, Longitude::Direction::East));
+	testDistance(point, SE, 14180);
+}
+
+TEST_F(CoordinateTestFixture, test_distance_ne_nw)
+{
+	Coordinate point(Latitude(23.0f, 10.0f, Latitude::Direction::North), Longitude(110.0f, 15.0f, Longitude::Direction::East));
+
+	Coordinate NW(Latitude(14.0f, 23.0f, Latitude::Direction::North), Longitude(74.0f, 12.0f, Longitude::Direction::West));
+	testDistance(point, NW, 15810);
+
+	Coordinate NE(Latitude(14.0f, 23.0f, Latitude::Direction::North), Longitude(74.0f, 12.0f, Longitude::Direction::East));
+	testDistance(point, NE, 3908);
+
+	Coordinate SW(Latitude(14.0f, 23.0f, Latitude::Direction::South), Longitude(74.0f, 12.0f, Longitude::Direction::West));
+	testDistance(point, SW, 18930);
+
+	Coordinate SE(Latitude(14.0f, 23.0f, Latitude::Direction::South), Longitude(74.0f, 12.0f, Longitude::Direction::East));
+	testDistance(point, SE, 5728);
+}
+
+// TODO: add SW and SE tests in similar fashion
+
+TEST_F(CoordinateTestFixture, test_distance_longitude_diff_overflow)
+{
+	Coordinate f(Latitude(45.0f), Longitude(-90.0f));
+	Coordinate s(Latitude(45.0f), Longitude(120.0f));
+	testDistance(f, s, 9580);
+}
+
 
 }
 

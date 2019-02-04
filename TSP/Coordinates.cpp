@@ -134,7 +134,6 @@ Longitude Coordinate::lon() const
 	return m_lon;
 }
 
-// TODO: test!
 float distance(const Coordinate & first, const Coordinate & second)
 {
 	assert(first.isValid());
@@ -147,9 +146,7 @@ float distance(const Coordinate & first, const Coordinate & second)
 
 	const float lat1 = first.lat().toRadians();
 	const float lat2 = second.lat().toRadians();
-	const float lonDiff = std::abs(static_cast<Longitude>(second.lon() - first.lon()).toRadians());
-	// TODO: remove after testing
-	//const float lonDiff = std::abs(second.lon().toRadians() - first.lon().toRadians());
+	const float lonDiff = std::abs(second.lon().toRadians() - first.lon().toRadians());
 
 	return Constants::EARTH_RADIUS * acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(lonDiff));
 }

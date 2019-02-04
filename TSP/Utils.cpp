@@ -1,6 +1,5 @@
 #include "Utils.h"
 
-#include "Constants.h"
 #include "Coordinates.h"
 #include "City.h"
 
@@ -9,9 +8,9 @@
 #include <cmath>
 #include <algorithm>
 
-bool isEqual(float first, float second)
+bool isEqual(float first, float second, float epsilion)
 {
-	return fabs(first - second) < Constants::EPSILION;
+	return fabs(first - second) < epsilion;
 }
 std::string_view trimStart(std::string_view str)
 {

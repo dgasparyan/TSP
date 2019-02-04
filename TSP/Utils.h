@@ -1,12 +1,14 @@
 #pragma once
 
+#include "Constants.h"
+
 #include <cassert>
 #include <string>
 #include <mutex>
 
 //TODO: unit-test these!
 
-bool isEqual(float first, float second);
+bool isEqual(float first, float second, float epsilion = Constants::EPSILION);
 
 std::string_view trimStart(std::string_view str);
 std::string_view trimEnd(std::string_view str);
