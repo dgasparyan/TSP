@@ -37,7 +37,7 @@ struct hash<City>
 {
 	size_t operator() (const City& city) const
 	{
-		return hash<std::string>()(toLowerCopy(city.getName()));
+		return hash<std::string>()(trimAndLowerCopy(city.getName()));
 	}
 };
 }

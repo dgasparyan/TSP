@@ -1,14 +1,20 @@
 #pragma once
 
+#include "Constants.h"
+
 #include <cassert>
 #include <string>
 #include <mutex>
 
 //TODO: unit-test these!
 
-bool isEqual(float first, float second);
+bool isEqual(float first, float second, float epsilion = Constants::EPSILION);
 
-std::string toLowerCopy(const std::string& str);
+std::string_view trimStart(std::string_view str);
+std::string_view trimEnd(std::string_view str);
+std::string_view trim(std::string_view str);
+
+std::string trimAndLowerCopy(const std::string& str);
 bool trimAndLowerEqual(std::string_view first, std::string_view second);
 
 template <class OutputIt>

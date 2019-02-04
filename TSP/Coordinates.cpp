@@ -12,7 +12,7 @@ namespace
 {
 float getInvalid()
 {
-	return std::numeric_limits<float>::min();
+	return std::numeric_limits<float>::lowest();
 }
 
 float toDegree(float degree, float minute)
@@ -27,11 +27,15 @@ float toRadian(float degree)
 
 }
 
-const Latitude Latitude::MIN = Latitude(90, 0, Latitude::Direction::South);
-const Latitude Latitude::MAX = Latitude(90, 0, Latitude::Direction::North);
+Latitude::Direction Latitude::getNegativeDirection()
+{
+	return Direction::South;
+}
 
-const Longitude Longitude::MIN = Longitude(180, 0, Longitude::Direction::East);
-const Longitude Longitude::MAX = Longitude(180, 0, Longitude::Direction::West);
+Latitude::Direction Latitude::getPositiveDirection()
+{
+	return Direction::North;
+}
 
 Latitude::Latitude()
 	:m_degrees(getInvalid())
@@ -41,12 +45,11 @@ Latitude::Latitude()
 Latitude::Latitude(float degree, float minute, Direction d)
 	: m_degrees(toDegree(degree, minute))
 {
-	if (d == Direction::South)
+	if (d == getNegativeDirection())
 	{
 		m_degrees *= -1;
 	}
 
-	assert(isValid());
 }
 
 bool Latitude::isValid() const
@@ -56,6 +59,7 @@ bool Latitude::isValid() const
 
 Latitude::operator float() const
 {
+	assert(isValid());
 	return m_degrees;
 }
 
@@ -63,6 +67,16 @@ float Latitude::toRadians() const
 {
 	assert(isValid());
 	return toRadian(m_degrees);
+}
+
+Longitude::Direction Longitude::getNegativeDirection()
+{
+	return Direction::West;
+}
+
+Longitude::Direction Longitude::getPositiveDirection()
+{
+	return Direction::East;
 }
 
 Longitude::Longitude()
@@ -73,12 +87,11 @@ Longitude::Longitude()
 Longitude::Longitude(float degree, float minute, Direction d)
 	: m_degrees(toDegree(degree, minute))
 {
-	if (d == Direction::East)
+	if (d == getNegativeDirection())
 	{
 		m_degrees *= -1;
 	}
 
-	assert(isValid());
 }
 
 bool Longitude::isValid() const
@@ -88,6 +101,7 @@ bool Longitude::isValid() const
 
 Longitude::operator float() const
 {
+	assert(isValid());
 	return m_degrees;
 }
 
@@ -110,15 +124,16 @@ bool Coordinate::isValid() const
 
 Latitude Coordinate::lat() const
 {
+	assert(isValid());
 	return m_lat;
 }
 
 Longitude Coordinate::lon() const
 {
+	assert(isValid());
 	return m_lon;
 }
 
-// TODO: test!
 float distance(const Coordinate & first, const Coordinate & second)
 {
 	assert(first.isValid());
@@ -131,9 +146,7 @@ float distance(const Coordinate & first, const Coordinate & second)
 
 	const float lat1 = first.lat().toRadians();
 	const float lat2 = second.lat().toRadians();
-	const float lonDiff = std::abs(static_cast<Longitude>(second.lon() - first.lon()).toRadians());
-	// TODO: remove after testing
-	//const float lonDiff = std::abs(second.lon().toRadians() - first.lon().toRadians());
+	const float lonDiff = std::abs(second.lon().toRadians() - first.lon().toRadians());
 
 	return Constants::EARTH_RADIUS * acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(lonDiff));
 }

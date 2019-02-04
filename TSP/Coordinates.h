@@ -9,12 +9,15 @@ struct Latitude
 		South
 	};
 
-	static const Latitude MIN;
-	static const Latitude MAX;
+	inline static const float MIN = -90.0f;
+	inline static const float MAX = 90.0f;
+
+	static Direction getNegativeDirection();
+	static Direction getPositiveDirection();
 
 public:
 	Latitude();
-	explicit Latitude(float degree, float minute = 0.0f, Direction d = Direction::North);
+	explicit Latitude(float degree, float minute = 0.0f, Direction d = getPositiveDirection());
 
 	bool isValid() const;
 
@@ -34,12 +37,15 @@ struct Longitude
 		West
 	};
 
-	static const Longitude MIN;
-	static const Longitude MAX;
+	inline static const float MIN = -180.0f;
+	inline static const float MAX = 180.0f;
+
+	static Direction getNegativeDirection();
+	static Direction getPositiveDirection();
 
 public:
 	Longitude();
-	explicit Longitude(float degree, float minute = 0.0f, Direction d = Direction::West);
+	explicit Longitude(float degree, float minute = 0.0f, Direction d = getPositiveDirection());
 
 	bool isValid() const;
 	operator float() const;
