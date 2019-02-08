@@ -1,114 +1,31 @@
 #include "Coordinates.h"
 
-#include "Constants.h"
 #include "Utils.h"
 
 #include <string>
 #include <iostream>
 #include <limits>
-#include <cassert>
 
-namespace
-{
-float getInvalid()
-{
-	return std::numeric_limits<float>::lowest();
-}
-
-float toDegree(float degree, float minute)
-{
-	return degree + (minute / 60);
-}
-
-float toRadian(float degree)
-{
-	return degree * Constants::PI / 180;
-}
-
-}
-
-Latitude::Direction Latitude::getNegativeDirection()
-{
-	return Direction::South;
-}
-
-Latitude::Direction Latitude::getPositiveDirection()
-{
-	return Direction::North;
-}
 
 Latitude::Latitude()
-	:m_degrees(getInvalid())
+	:Base()
 {
 }
 
 Latitude::Latitude(float degree, float minute, Direction d)
-	: m_degrees(toDegree(degree, minute))
+	: Base(degree, minute, d)
 {
-	if (d == getNegativeDirection())
-	{
-		m_degrees *= -1;
-	}
-
-}
-
-bool Latitude::isValid() const
-{
-	return m_degrees >= MIN && m_degrees <= MAX;
-}
-
-Latitude::operator float() const
-{
-	assert(isValid());
-	return m_degrees;
-}
-
-float Latitude::toRadians() const
-{
-	assert(isValid());
-	return toRadian(m_degrees);
-}
-
-Longitude::Direction Longitude::getNegativeDirection()
-{
-	return Direction::West;
-}
-
-Longitude::Direction Longitude::getPositiveDirection()
-{
-	return Direction::East;
 }
 
 Longitude::Longitude()
-	:m_degrees(getInvalid())
+	:Base()
 {
 }
 
 Longitude::Longitude(float degree, float minute, Direction d)
-	: m_degrees(toDegree(degree, minute))
+	: Base(degree, minute, d)
 {
-	if (d == getNegativeDirection())
-	{
-		m_degrees *= -1;
-	}
 
-}
-
-bool Longitude::isValid() const
-{
-	return m_degrees >= MIN && m_degrees <= MAX;
-}
-
-Longitude::operator float() const
-{
-	assert(isValid());
-	return m_degrees;
-}
-
-float Longitude::toRadians() const
-{
-	assert(isValid());
-	return toRadian(m_degrees);
 }
 
 Coordinate::Coordinate(Latitude lat, Longitude lon)
@@ -151,28 +68,9 @@ float distance(const Coordinate & first, const Coordinate & second)
 	return Constants::EARTH_RADIUS * acos(sin(lat1) * sin(lat2) + cos(lat1) * cos(lat2) * cos(lonDiff));
 }
 
-bool operator == (Latitude first, Latitude second)
-{
-	return isEqual(first, second);
-}
-bool operator == (Longitude first, Longitude second)
-{
-	return isEqual(first, second);
-}
-
 bool operator == (Coordinate first, Coordinate second)
 {
 	return first.lat() == second.lat() && first.lon() == second.lon();
-}
-
-bool operator != (Latitude first, Latitude second)
-{
-	return !(first == second);
-}
-
-bool operator != (Longitude first, Longitude second)
-{
-	return !(first == second);
 }
 
 bool operator != (Coordinate first, Coordinate second)
