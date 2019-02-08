@@ -2,10 +2,7 @@
 
 #include "Utils.h"
 
-#include <string>
 #include <iostream>
-#include <limits>
-
 
 Latitude::Latitude()
 	:Base()
