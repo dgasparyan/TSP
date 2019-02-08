@@ -22,12 +22,11 @@ void testValid()
 	T valid(45.0f, 0.0f);
 	ASSERT_TRUE(valid.isValid());
 
-	T less_than_min(T::MIN - 1.0f);
+	T less_than_min(T::MIN() - 1.0f);
 	ASSERT_FALSE(less_than_min.isValid());
 
-	T greater_than_max(T::MAX + 1.0f);
+	T greater_than_max(T::MAX() + 1.0f);
 	ASSERT_FALSE(greater_than_max.isValid());
-
 }
 
 template <class T>
@@ -43,7 +42,11 @@ void testValues()
 	T val {2.0f};
 	for (auto v : positive_values)
 	{
+		// we provide both operator so we'll test both
 		bool is_eq = v == val;
+		bool is_not_equal = v != val;
+		ASSERT_NE(is_eq, is_not_equal);
+
 		if (!is_eq)
 		{
 			std::cout << "Error: " << v << " " << val << std::endl;
@@ -68,6 +71,35 @@ void testValues()
 		}
 	}
 
+}
+
+template <class T>
+void testEquality()
+{
+	T first(30.0f);
+	T second(30.0f);
+
+	bool isEqual = first == second;
+	ASSERT_TRUE(isEqual);
+
+	T* pointerToFirst = &first;
+	T* newPointerToFirst = &first;
+	isEqual = pointerToFirst == newPointerToFirst;
+	ASSERT_TRUE(isEqual);
+
+	T* pointerToSecond = &second;
+	isEqual = pointerToFirst == pointerToSecond;
+	ASSERT_FALSE(isEqual);
+
+	T& refToFirst = first;
+	T& newRefToFirst = first;
+	T& refToSecond = second;
+
+	isEqual = refToFirst == newRefToFirst;
+	ASSERT_TRUE(isEqual);
+
+	isEqual = refToFirst == refToSecond;
+	ASSERT_TRUE(isEqual);
 }
 
 template <class T>
@@ -112,6 +144,11 @@ TEST_F(CoordinateTestFixture, test_latitude_valid)
 	testValid<Latitude>();
 }
 
+TEST_F(CoordinateTestFixture, test_latitude_equal)
+{
+	testEquality<Latitude>();
+}
+
 TEST_F(CoordinateTestFixture, test_latitude_values)
 {
 	testValues<Latitude>();
@@ -127,6 +164,12 @@ TEST_F(CoordinateTestFixture, test_longitude_valid)
 {
 	testValid<Longitude>();
 }
+
+TEST_F(CoordinateTestFixture, test_longitude_equal)
+{
+	testEquality<Longitude>();
+}
+
 
 TEST_F(CoordinateTestFixture, test_longitude_values)
 {
@@ -152,7 +195,6 @@ TEST_F(CoordinateTestFixture, test_coordinate_isValid)
 	Coordinate invalidLongitude(Latitude(0.0f), Longitude());
 	ASSERT_FALSE(invalidLongitude.isValid());
 }
-
 
 TEST_F(CoordinateTestFixture, test_distance_same_point)
 {
