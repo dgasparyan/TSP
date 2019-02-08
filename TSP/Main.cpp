@@ -38,7 +38,7 @@ namespace
 			try
 			{
 				City c = fromString(line);
-				if (c.isValid())
+				if (c)
 				{
 					cities.emplace(std::move(c));
 				}

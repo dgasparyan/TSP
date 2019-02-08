@@ -26,7 +26,7 @@ public:
 	explicit Path(const T& startCity)
 		: Path()
 	{
-		if (startCity.isValid())
+		if (startCity)
 		{
 			m_path.push_back(startCity);
 		}
@@ -37,7 +37,7 @@ public:
 	Path& operator=(const Path&) = default;
 	Path& operator=(Path&&) = default;
 
-	bool isValid() const
+	explicit operator bool() const
 	{
 		return !m_path.empty();
 	}

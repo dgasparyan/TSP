@@ -62,7 +62,7 @@ namespace
 template <class T>
 Path<T> twoOptSwap(const Path<T>& origPath, typename Path<T>::const_iterator beg, typename Path<T>::const_iterator end)
 {
-	assert(origPath.isValid());
+	assert(origPath);
 	assert(beg < end && end < origPath.cend());
 
 	Path<T> newPath(origPath.size());
