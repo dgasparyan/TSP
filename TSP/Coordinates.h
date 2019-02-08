@@ -120,20 +120,20 @@ struct SingleCoordinateCRTP
 		}
 	}
 
-	bool isValid() const
+	explicit operator bool() const
 	{
 		return m_degrees >= MIN() && m_degrees <= MAX();
 	}
 
 	explicit operator float() const
 	{
-		assert(isValid());
+		assert(*this);
 		return m_degrees;
 	}
 
 	float toRadians() const
 	{
-		assert(isValid());
+		assert(*this);
 		return m_degrees * Constants::PI / 180;
 	}
 
@@ -162,7 +162,7 @@ struct Coordinate
 	Coordinate() = default;
 	Coordinate(Latitude lat, Longitude lon);
 
-	bool isValid() const;
+	explicit operator bool() const;
 
 	Latitude lat() const;
 	Longitude lon() const;
@@ -181,22 +181,22 @@ float distance(const Coordinate& first, const Coordinate& second);
 
 namespace
 {
-template <class T> using enable_equality_opeartor_t = std::enable_if_t<std::is_base_of_v<SingleCoordinateCRTP<T>, T>>;
+template <class T> using enable_operators_t = std::enable_if_t<std::is_base_of_v<SingleCoordinateCRTP<T>, T>>;
 }
 
-template<class T, typename = enable_equality_opeartor_t<T>>
+template<class T, typename = enable_operators_t<T>>
 bool operator == (T first, T second)
 {
 	return isEqual((float)first, (float)second);
 }
 
-template<class T, typename = enable_equality_opeartor_t<T>>
+template<class T, typename = enable_operators_t<T>>
 bool operator != (T first, T second)
 {
 	return !(first == second);
 }
 
-template<class T, typename = enable_equality_opeartor_t<T>>
+template<class T, typename = enable_operators_t<T>>
 std::ostream& operator << (std::ostream& stream, T t)
 {
 	stream << static_cast<float>(t);

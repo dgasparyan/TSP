@@ -13,8 +13,7 @@ public:
 	City(const std::string& name, const Coordinate& coord);
 	City(const std::string& name, Latitude lat, Longitude lon);
 
-	bool isValid() const;
-
+	explicit operator bool() const;
 	const std::string& getName() const;
 	const Coordinate& getCoordinates() const;
 

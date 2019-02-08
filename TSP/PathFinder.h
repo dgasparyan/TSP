@@ -41,7 +41,7 @@ public:
 		Path<T> result(start);
 		for (const T& item : items)
 		{
-			assert(item.isValid());
+			assert(item);
 			result.push_back(item);
 		}
 
@@ -71,8 +71,8 @@ public:
 		ScopeTimer st("Find Path: " + getName());
 
 		assert(!items.empty());
-		T start = startT.isValid() ? startT : *items.begin();
-		assert(start.isValid());
+		T start = startT ? startT : *items.begin();
+		assert(start);
 
 		std::list<T> itemList;
 		for (const T& item : items)
@@ -85,7 +85,7 @@ public:
 
 		Path<T> result(start);
 		T next = findAndRemoveNearest(start, itemList);
-		while (next.isValid())
+		while (next)
 		{
 			result.push_back(next);
 			next = findAndRemoveNearest(next, itemList);
@@ -131,7 +131,7 @@ namespace
 template <class T, class Container>
 T findAndRemoveNearest(const T& from, Container& itemList)
 {
-	assert(from.isValid());
+	assert(from);
 	if (itemList.empty())
 	{
 		return T{};
@@ -142,7 +142,7 @@ T findAndRemoveNearest(const T& from, Container& itemList)
 	for (auto it = itemList.begin(); it != itemList.end(); ++it)
 	{
 		T item = *it;
-		assert(item.isValid());
+		assert(item);
 		if (item == from)
 		{
 			continue;

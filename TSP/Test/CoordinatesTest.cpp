@@ -17,16 +17,16 @@ template <class T>
 void testValid()
 {
 	T invalid;
-	ASSERT_FALSE(invalid.isValid());
+	ASSERT_FALSE(invalid);
 
 	T valid(45.0f, 0.0f);
-	ASSERT_TRUE(valid.isValid());
+	ASSERT_TRUE(valid);
 
 	T less_than_min(T::MIN() - 1.0f);
-	ASSERT_FALSE(less_than_min.isValid());
+	ASSERT_FALSE(less_than_min);
 
 	T greater_than_max(T::MAX() + 1.0f);
-	ASSERT_FALSE(greater_than_max.isValid());
+	ASSERT_FALSE(greater_than_max);
 }
 
 template <class T>
@@ -187,13 +187,13 @@ TEST_F(CoordinateTestFixture, test_longitude_to_radians)
 TEST_F(CoordinateTestFixture, test_coordinate_isValid)
 {
 	Coordinate c(Latitude(0.0f), Longitude(0.0f));
-	ASSERT_TRUE(c.isValid());
+	ASSERT_TRUE(c);
 
 	Coordinate invalidLatitude(Latitude(), Longitude(0.0f));
-	ASSERT_FALSE(invalidLatitude.isValid());
+	ASSERT_FALSE(invalidLatitude);
 
 	Coordinate invalidLongitude(Latitude(0.0f), Longitude());
-	ASSERT_FALSE(invalidLongitude.isValid());
+	ASSERT_FALSE(invalidLongitude);
 }
 
 TEST_F(CoordinateTestFixture, test_distance_same_point)

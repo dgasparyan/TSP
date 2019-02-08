@@ -31,27 +31,27 @@ Coordinate::Coordinate(Latitude lat, Longitude lon)
 {
 }
 
-bool Coordinate::isValid() const
+Coordinate::operator bool() const
 {
-	return m_lat.isValid() && m_lon.isValid();
+	return m_lat && m_lon;
 }
 
 Latitude Coordinate::lat() const
 {
-	assert(isValid());
+	assert(*this);
 	return m_lat;
 }
 
 Longitude Coordinate::lon() const
 {
-	assert(isValid());
+	assert(*this);
 	return m_lon;
 }
 
 float distance(const Coordinate & first, const Coordinate & second)
 {
-	assert(first.isValid());
-	assert(second.isValid());
+	assert(first);
+	assert(second);
 
 	if (first == second)
 	{

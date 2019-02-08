@@ -5,22 +5,22 @@
 #include <iostream>
 
 City::City(const std::string & name, const Coordinate & coord)
-	: m_name(name)
+	: m_name(trim(name))
 	, m_coordinate(coord)
 {
 	assert(!m_name.empty());
 }
 
 City::City(const std::string & name, Latitude lat, Longitude lon)
-	: m_name(name)
+	: m_name(trim(name))
 	, m_coordinate(lat, lon)
 {
 	assert(!m_name.empty());
 }
 
-bool City::isValid() const
+City::operator bool() const
 {
-	return !m_name.empty() && m_coordinate.isValid();
+	return !m_name.empty() && m_coordinate;
 }
 
 const std::string & City::getName() const
