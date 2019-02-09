@@ -5,54 +5,47 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="Test">
       <UniqueIdentifier>{6e6ac825-99c4-4f39-b463-12c3cc7f6767}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{60d11adf-dcf6-4d21-a7ea-53f1ce1f3cf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Cities">
+      <UniqueIdentifier>{58b13ed6-e409-4be4-b7f8-2f3fa8ee39fc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Solver.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Cities\City.h">
+      <Filter>Cities</Filter>
     </ClInclude>
-    <ClInclude Include="PathFinder.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\Utils.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Common.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\Solver.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Constants.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\PathOptimizer.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Path.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\PathFinder.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="City.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\Path.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="Coordinates.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Cities\Common.h">
+      <Filter>Cities</Filter>
     </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\Coordinates.h">
+      <Filter>Core</Filter>
     </ClInclude>
-    <ClInclude Include="PathOptimizer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Core\Constants.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="City.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Coordinates.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Test\UtilsTest.cpp">
@@ -76,8 +69,17 @@
     <ClCompile Include="Test\SolverTest.cpp">
       <Filter>Test</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Coordinates.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Cities\City.cpp">
+      <Filter>Cities</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Utils.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="TODO.txt" />
+    <Text Include="..\TODO.txt" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,5 @@
 #pragma once
-#include "Common.h"
-
+#include "Path.h"
 #include <assert.h>
 
 template <class T>
