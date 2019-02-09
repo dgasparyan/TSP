@@ -7,15 +7,7 @@
 #include <cassert>
 #include <type_traits>
 
-namespace
-{
-float getInvalid()
-{
-	return std::numeric_limits<float>::lowest();
-}
-}
-
-// NOTE: the whole CRTP is not really necessary (or wise in this case as it 
+// NOTE: the whole CRTP below is not really necessary (or wise in this case as it 
 // overcomplicates things with very little gains in avoiding code-duplication
 // , it's just done because we can (and want to practice :) ).
 
@@ -107,7 +99,7 @@ struct SingleCoordinateCRTP
 	}
 
 	SingleCoordinateCRTP()
-		:m_degrees(getInvalid())
+		:m_degrees(std::numeric_limits<float>::lowest())
 	{}
 
 	explicit SingleCoordinateCRTP(float degree, float minute = 0.0f, 
@@ -172,13 +164,6 @@ private:
 	Longitude m_lon;
 };
 
-// returns the distance between the cities based on spherical law of cosines formula
-// https://en.wikipedia.org/wiki/Great-circle%5Fdistance#Formulas
-// This does have rounding errors when distances are too small, but it works well for our case
-// since we are calculating flight distances(which would be more than 1km :) )
-// alternative would be to use haversine formula
-float distance(const Coordinate& first, const Coordinate& second);
-
 namespace
 {
 template <class T> using enable_operators_t = std::enable_if_t<std::is_base_of_v<SingleCoordinateCRTP<T>, T>>;
@@ -202,6 +187,13 @@ std::ostream& operator << (std::ostream& stream, T t)
 	stream << static_cast<float>(t);
 	return stream;
 }
+
+// returns the distance between the cities based on spherical law of cosines formula
+// https://en.wikipedia.org/wiki/Great-circle%5Fdistance#Formulas
+// This does have rounding errors when distances are too small, but it works well for our case
+// since we are calculating flight distances(which would be more than 1km :) )
+// alternative would be to use haversine formula
+float distance(const Coordinate& first, const Coordinate& second);
 
 bool operator == (Coordinate first, Coordinate second);
 bool operator != (Coordinate first, Coordinate second);
