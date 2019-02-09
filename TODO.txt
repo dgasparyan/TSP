@@ -1,4 +1,5 @@
 -- Testing
+-- Make sure Core does NOT depend on City, including typedefs using in City/Common.h!
 
 -- Brute-force for small values
 -- Option to return to orig city
