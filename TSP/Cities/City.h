@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Utils.h"
-#include "Coordinates.h"
+#include "../Core/Utils.h"
+#include "../Core/Coordinates.h"
 
 #include <iosfwd>
 #include <string>

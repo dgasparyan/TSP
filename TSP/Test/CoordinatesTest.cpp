@@ -1,7 +1,7 @@
 #ifdef TESTING
 
-#include "../Coordinates.h"
-#include "../Utils.h"
+#include "../Core/Coordinates.h"
+#include "../Core/Utils.h"
 
 #include <gtest/gtest.h>
 #include <array>

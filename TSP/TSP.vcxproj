@@ -100,6 +100,7 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TESTING_DEBUG|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -111,22 +112,25 @@
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='TESTING_DEBUG|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>C:\Users\gasparyd\Desktop\TSP\External\Include;$(IncludePath)</IncludePath>
     <LibraryPath>C:\Users\gasparyd\Desktop\TSP\External\x86\Debug;$(LibraryPath)</LibraryPath>
-    <SourcePath>$(VC_SourcePath);</SourcePath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(IncludePath)</IncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
+    <SourcePath>$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -238,19 +242,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="City.h" />
-    <ClInclude Include="Common.h" />
-    <ClInclude Include="Constants.h" />
-    <ClInclude Include="Coordinates.h" />
-    <ClInclude Include="Path.h" />
-    <ClInclude Include="PathFinder.h" />
-    <ClInclude Include="PathOptimizer.h" />
-    <ClInclude Include="Solver.h" />
-    <ClInclude Include="Utils.h" />
+    <ClInclude Include="Cities\City.h" />
+    <ClInclude Include="Cities\Common.h" />
+    <ClInclude Include="Core\Constants.h" />
+    <ClInclude Include="Core\Coordinates.h" />
+    <ClInclude Include="Core\Path.h" />
+    <ClInclude Include="Core\PathFinder.h" />
+    <ClInclude Include="Core\PathOptimizer.h" />
+    <ClInclude Include="Core\Solver.h" />
+    <ClInclude Include="Core\Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="City.cpp" />
-    <ClCompile Include="Coordinates.cpp" />
+    <ClCompile Include="Cities\City.cpp" />
+    <ClCompile Include="Core\Coordinates.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Test\CityTest.cpp" />
     <ClCompile Include="Test\CoordinatesTest.cpp" />
@@ -259,10 +263,10 @@
     <ClCompile Include="Test\PathTest.cpp" />
     <ClCompile Include="Test\SolverTest.cpp" />
     <ClCompile Include="Test\UtilsTest.cpp" />
-    <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="Core\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="TODO.txt" />
+    <Text Include="..\TODO.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

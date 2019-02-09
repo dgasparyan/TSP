@@ -1,7 +1,7 @@
 #pragma once
 
 #include "City.h"
-#include "Path.h"
+#include "../Core/Path.h"
 #include <unordered_set>
 
 template <class T>

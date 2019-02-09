@@ -1,9 +1,9 @@
 // Main.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
-#include "Common.h"
-#include "Solver.h"
-#include "PathFinder.h"
+#include "Cities/Common.h"
+#include "Core/Solver.h"
+#include "Core/PathFinder.h"
 
 #include <iostream>
 #include <string_view>
