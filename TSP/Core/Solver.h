@@ -33,7 +33,7 @@ public:
 		m_finders.emplace_back(std::move(finder));
 	}
 
-	PathInfo<T> getOptimalPath() const
+	Path<T> getOptimalPath() const
 	{
 		ScopeTimer t ("FINDING OPTIMAL PATH");
 
@@ -45,25 +45,21 @@ public:
 			return findPath(m_finders.front());
 		}
 
-		std::vector<std::future<PathInfo<T>>> futures;
+		std::vector<std::future<Path<T>>> futures;
 		futures.reserve(m_finders.size() - 1);
 		for (auto it = m_finders.begin() + 1; it != m_finders.end(); ++it)
 		{
 			futures.emplace_back(std::async(std::launch::async, &Solver<T>::findPath, this, std::cref(*it)));
 		}
 
-		PathInfo<T> minPath = findPath(m_finders.front());
-		if (minPath.second)
-		{
-			return minPath;
-		}
-		ThreadSafeLogger::instance().log("current min path length = ", minPath.first.totalDistance());
+		Path<T> minPath = findPath(m_finders.front());
+		ThreadSafeLogger::instance().log("current min path length = ", minPath.totalDistance());
 		for(auto& fut : futures)
 		{
 			try
 			{
-				PathInfo<T> newPath = fut.get();
-				if (newPath.first.totalDistance() < minPath.first.totalDistance())
+				Path<T> newPath = fut.get();
+				if (newPath.totalDistance() < minPath.totalDistance())
 				{
 					minPath = std::move(newPath);
 				}
@@ -79,7 +75,7 @@ public:
 	}
 
 private:
-	PathInfo<T> findPath(const FinderPtr& finder) const
+	Path<T> findPath(const FinderPtr& finder) const
 	{
 		assert(finder);
 		return finder->findPath(m_cities, m_start/*, TODO: handle cache*/);

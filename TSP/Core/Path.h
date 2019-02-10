@@ -91,9 +91,6 @@ private:
 };
 
 template <class T>
-using PathInfo = std::pair<Path<T>, bool>;
-
-template <class T>
 std::ostream& operator << (std::ostream& str, const Path<T>& path)
 {
 	for (const T& t : path.getPath())
