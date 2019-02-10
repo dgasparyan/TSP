@@ -93,7 +93,7 @@ int main(int argc, char* argv[])
 	std::unique_ptr optimizer = std::make_unique<TwoOptOptimizer<City>>();
 	s.emplaceFinder(std::make_unique<OptimizedPathFinder<City>>(std::move(finder), std::move(optimizer)));
 
-	auto[path, isOptimal] = s.getOptimalPath();
+	auto path = s.getOptimalPath();
 	std::cout << "Optimal Path is: " << std::endl << path << std::endl;
 }
 

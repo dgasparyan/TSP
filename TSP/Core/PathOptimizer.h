@@ -9,7 +9,7 @@ public:
 	virtual ~PathOptimizer() = 0
 	{}
 
-	virtual PathInfo<T> optimize(Path<T>&& path, bool keepStart = true, bool keepEnd = true) const = 0;
+	virtual Path<T> optimize(Path<T>&& path, bool keepStart = true, bool keepEnd = true) const = 0;
 };
 
 template <class T>
@@ -27,7 +27,7 @@ class TwoOptOptimizer : public PathOptimizer<T>
 {
 public:
 	// TODO: support keepEnd
-	PathInfo<T> optimize(Path<T>&& path, bool keepStart, bool keepEnd) const override
+	Path<T> optimize(Path<T>&& path, bool keepStart, bool keepEnd) const override
 	{
 		Path<T> result = std::move(path);
 		if (result.size() >= 2)
@@ -51,7 +51,7 @@ public:
 			}
 		}
 
-		return std::make_pair(result, false);
+		return result;
 	}
 
 };

@@ -17,7 +17,7 @@ public:
 	virtual const std::string& getName() const = 0;
 
 	// TODO; CACHE
-	virtual PathInfo<T> findPath(const ItemColl<T>& items, const T& start/*, WeigthCachePtr cache = nullptr*/) const = 0;
+	virtual Path<T> findPath(const ItemColl<T>& items, const T& start/*, WeigthCachePtr cache = nullptr*/) const = 0;
 };
 
 template <class T>
@@ -33,7 +33,7 @@ public:
 		static const std::string RESULT = "NaivePathFinder";
 		return RESULT;
 	}
-	PathInfo<T> findPath(const ItemColl<T>& items, const T& start/*, WeigthCachePtr cache = nullptr*/) const override
+	Path<T> findPath(const ItemColl<T>& items, const T& start/*, WeigthCachePtr cache = nullptr*/) const override
 	{
 		ScopeTimer st("Find Path: " + getName());
 		// TODO: cache
@@ -44,7 +44,7 @@ public:
 			result.push_back(item);
 		}
 
-		return std::make_pair(result, false);
+		return result;
 	}
 };
 
@@ -65,7 +65,7 @@ public:
 		return RESULT;
 	}
 
-	PathInfo<T> findPath(const ItemColl<T>& items, const T& startT/*, WeigthCachePtr cache = nullptr*/) const override
+	Path<T> findPath(const ItemColl<T>& items, const T& startT/*, WeigthCachePtr cache = nullptr*/) const override
 	{
 		ScopeTimer st("Find Path: " + getName());
 
@@ -92,7 +92,7 @@ public:
 
 		// make sure we processed all items
 		assert(itemList.empty());
-		return std::make_pair(result, false);
+		return result;
 	}
 };
 
@@ -111,12 +111,12 @@ public:
 		return RESULT;
 	}
 
-	PathInfo<T> findPath(const ItemColl<T>& items, const T& startT/*, WeigthCachePtr cache = nullptr*/) const override
+	Path<T> findPath(const ItemColl<T>& items, const T& startT/*, WeigthCachePtr cache = nullptr*/) const override
 	{
 		assert(m_finder);
 		assert(m_optimizer);
 		ScopeTimer t("Find Path: Optimized " + m_finder->getName());
-		return m_optimizer->optimize(m_finder->findPath(items, startT).first);
+		return m_optimizer->optimize(m_finder->findPath(items, startT));
 	}
 
 private:
