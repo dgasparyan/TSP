@@ -1,3 +1,4 @@
+-- Remove "isOptimal" and PathInfo stuff!
 -- Testing
 -- Make sure Core does NOT depend on City, including typedefs using in City/Common.h!
 
