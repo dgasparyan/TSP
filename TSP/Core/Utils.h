@@ -6,8 +6,6 @@
 #include <string>
 #include <mutex>
 
-//TODO: unit-test these!
-
 bool isEqual(float first, float second, float epsilion = Constants::EPSILION);
 
 std::string_view trimStart(std::string_view str);

@@ -48,6 +48,18 @@ Longitude Coordinate::lon() const
 	return m_lon;
 }
 
+Latitude operator"" _lat(long double degree)
+{
+	assert(degree >= Latitude::MIN() && degree <= Latitude::MAX());
+	return Latitude(static_cast<float>(degree));
+}
+
+Longitude operator"" _lon(long double degree)
+{
+	assert(degree >= Longitude::MIN() && degree <= Longitude::MAX());
+	return Longitude(static_cast<float>(degree));
+}
+
 float distance(const Coordinate & first, const Coordinate & second)
 {
 	assert(first);

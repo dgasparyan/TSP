@@ -25,6 +25,7 @@ TEST_F(UtilTestFixture, test_trim_start)
 {
 	ASSERT_EQ("abcde", trimAndLowerCopy("abcde"));
 	ASSERT_EQ("abcde", trimAndLowerCopy("  abcde"));
+	ASSERT_EQ("abcde", trimAndLowerCopy("\t\tabcde"));
 	ASSERT_EQ("", trimAndLowerCopy("     "));
 }
 
@@ -32,6 +33,7 @@ TEST_F(UtilTestFixture, test_trim_end)
 {
 	ASSERT_EQ("abcde", trimAndLowerCopy("abcde"));
 	ASSERT_EQ("abcde", trimAndLowerCopy("abcde   "));
+	ASSERT_EQ("abcde", trimAndLowerCopy("abcde\t\t\t"));
 	ASSERT_EQ("", trimAndLowerCopy("     "));
 }
 

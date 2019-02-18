@@ -154,6 +154,13 @@ TEST_F(CoordinateTestFixture, test_latitude_values)
 	testValues<Latitude>();
 }
 
+TEST_F(CoordinateTestFixture, test_latitude_literal)
+{
+	Latitude l = 23.0_lat;
+	Latitude l1 = Latitude(23.0f);
+	ASSERT_TRUE(l == l1);
+}
+
 TEST_F(CoordinateTestFixture, test_latitude_to_radians)
 {
 	testToRadians<Latitude>();
@@ -181,6 +188,14 @@ TEST_F(CoordinateTestFixture, test_longitude_to_radians)
 	testToRadians<Longitude>();
 	isEqualRadian<Longitude>(180.0f, 3.14f);
 	isEqualRadian<Longitude>(-180.0f, -3.14f);
+}
+
+TEST_F(CoordinateTestFixture, test_longitude_literal)
+{
+	Longitude l = 23.0_lon;
+	Longitude l1(23.0f);
+
+	ASSERT_EQ(l, l1);
 }
 
 /// Coordinate Tests ////

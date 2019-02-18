@@ -59,9 +59,7 @@ float distance(const City & first, const City & second)
 
 bool operator == (const City& first, const City& second)
 {
-	// TODO: replace this with a comparison without the copy stuff after testing
-	//return trimAndLowerEqual(first.getName(), second.getName());
-	return trimAndLowerCopy(first.getName()) == trimAndLowerCopy(second.getName());
+	return trimAndLowerEqual(first.getName(), second.getName());
 }
 
 bool operator != (const City& first, const City& second)
