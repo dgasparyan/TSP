@@ -188,6 +188,9 @@ std::ostream& operator << (std::ostream& stream, T t)
 	return stream;
 }
 
+Latitude operator"" _lat(long double degree);
+Longitude operator"" _lon(long double degree);
+
 // returns the distance between the cities based on spherical law of cosines formula
 // https://en.wikipedia.org/wiki/Great-circle%5Fdistance#Formulas
 // This does have rounding errors when distances are too small, but it works well for our case

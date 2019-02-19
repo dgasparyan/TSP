@@ -11,15 +11,16 @@ bool isEqual(float first, float second, float epsilion)
 {
 	return fabs(first - second) < epsilion;
 }
+
 std::string_view trimStart(std::string_view str)
 {
-	str.remove_prefix(std::min(str.find_first_not_of(" "), str.size()));
+	str.remove_prefix(std::min(str.find_first_not_of(" \t"), str.size()));
 	return str;
 }
 
 std::string_view trimEnd(std::string_view str)
 {
-	auto fLast = str.find_last_not_of(" ");
+	auto fLast = str.find_last_not_of(" \t");
 	if (fLast != str.npos)
 	{
 		str.remove_suffix(str.size() - fLast - 1);
