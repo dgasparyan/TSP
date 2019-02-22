@@ -23,7 +23,6 @@ public:
 template <class T>
 using PathFinderUPtr = std::unique_ptr<PathFinder<T>>;
 
-
 template <class T>
 class NaivePathFinder : public PathFinder<T>
 {
