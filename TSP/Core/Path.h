@@ -67,10 +67,12 @@ public:
 	{
 		return m_path;
 	}
+
 	float totalDistance() const
 	{
 		return m_distance;
 	}
+
 	size_t size() const
 	{
 		return m_path.size();
